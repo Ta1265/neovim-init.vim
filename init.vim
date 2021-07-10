@@ -5,23 +5,21 @@
 
 " Start regular vim config stuff
 
-" built in pluggin to display tree
-filetype plugin indent on
 
-" my shortcut to Display a tree of working directory
-:command T 30vs . 
+filetype plugin indent on "built in pluggin to display tree
+
+
+:command T 30vs . "my shortcut to Display a tree of working directory
 
 set backspace=indent,eol,start
 
 syntax on
 
-"for :find file, set path= current directory, and all its child directories
-set path=.,**
+set path=.,** "for :find file, set path= current directory, and all its child directories
 
-"highlight term incrementally as you type it, use :nohl to remove highlight after
-set hlsearch incsearch
+set hlsearch incsearch "highlight term incrementally as you type it, use :nohl to remove highlight after 
 
-colorscheme koehler "pretty colors
+colorscheme koehler " colors
 
 set bg=dark "dark background
 
@@ -37,19 +35,16 @@ let g:netrw_liststyle=3 " Shows files in a tree easier to navigate
 
 ":set shell=/usr/bin/bash
 
-":set number relativenumber
-:set number
+:set number "relative numbers
+
 "set clipboard=unnamed "y and p to use system clipboard
-set nowrap
+
+nnoremap <C-Tab> :bn<CR>
+
 "set nocursorline
 
+" neovim/vimplug start here
 
-"neovim/vimplug start here
-
-" Specify a directory for plugins
-" - For Neovim: stdpath('data') . '/plugged'
-" - Avoid using standard Vim directory names like 'plugin'
-" this will install vim-plug if not installed
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
     silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -57,34 +52,24 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
     
 call plug#begin()
-    
-" theme
-Plug 'sainnhe/edge'
-" Make sure you use single quotes
-" vim-javascript
-Plug 'https://github.com/pangloss/vim-javascript.git ~/.vim/bundle/vim-javascript'
-
-Plug 'panglos/vim-javascript', { 'branch': 'main' }
-
+Plug 'sainnhe/edge' "theme
+Plug 'https://github.com/sheerun/vim-polyglot.git' " syntax highlighting for multiple languages
+"Plug 'panglos/vim-javascript', { 'branch': 'main' } " syntax highlighting for javascript
 "Plug 'https://github.com/pangloss/vim-javascript.git'
-
 Plug 'jiangmiao/auto-pairs' "this will auto close ( [ {
-
-" these two plugins will add highlighting and indenting to JSX and TSX files.
-Plug 'yuezk/vim-js'
+Plug 'yuezk/vim-js' " these two plugins will add highlighting and indenting to JSX and TSX files. 
 Plug 'HerringtonDarkholme/yats.vim'
-
-" autocorrect for js / ts
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Initialize plugin system
+Plug 'nvim-lua/popup.nvim' "Telescope plugins (3)
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}  "autocorrect for js / ts
 call plug#end()
-" Important!!
-if has('termguicolors')
+
+if has('termguicolors') " theme helper
   set termguicolors
 endif
 
-" The configuration options should be placed before `colorscheme edge`.
 let g:edge_transparent_background = 1
 let g:edge_style = 'aura'
 let g:edge_enable_italic = 1
@@ -95,26 +80,21 @@ highlight lineNr ctermfg=grey
 set smarttab
 set cindent
 
+
 " coc config
 let g:coc_global_extensions = [
   \ 'coc-pairs',
   \ 'coc-eslint', 
   \ 'coc-json' ]
+
 highlight CocHighlightText     ctermfg=LightMagenta guifg=LightMagenta
-" Yank and paste with the system clipboard
-"set cmdheight=1
+
 let g:used_javascript_libs = 'underscore,requirejs,chai,jquery'
-"nmap <leader>y :StripWhitespace<CR>
-" from readme
-" if hidden is not set, TextEdit might fail.
+
+nmap <leader>y :StripWhitespace<CR>
+
 set hidden " Some servers have issues with backup files, see #649 set nobackup set nowritebackup " Better display for messages set cmdheight=2 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-" set shortmess+=c
-
-" always show signcolumns
-" set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -135,22 +115,14 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use `[g` and `]g` to navigate diagnostics
-"nmap <silent> [g <Plug>(coc-diagnostic-prev)
-"nmap <silent> ]g <Plug>(coc-diagnostic-next)
-"
-"" Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
-"nmap <silent> gy <Plug>(coc-type-definition)
-"nmap <silent> gi <Plug>(coc-implementation)
-"nmap <silent> gr <Plug>(coc-references)
-"
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-"Use K to show documentation in preview window
- nnoremap <silent> K :call <SID>show_documentation()<CR>
+"Use gi go show documentation in preview window
+" nnoremap <silent> gi :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -163,67 +135,75 @@ endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Remap for rename current word
-"nmap <F2> <Plug>(coc-rename)
-
-" Remap for format selected region
-"xmap <leader>f  <Plug>(coc-format-selected)
-"nmap <leader>f  <Plug>(coc-format-selected)
-
-"augroup mygroup
-"  autocmd!
-"  " Setup formatexpr specified filetype(s).
-"  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-"  " Update signature help on jump placeholder
-"  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-"augroup end
-"
-"" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-"xmap <leader>a  <Plug>(coc-codeaction-selected)
-"nmap <leader>a  <Plug>(coc-codeaction-selected)
-"
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
-"
-"" Create mappings for function text object, requires document symbols feature of languageserver.
-"xmap if <Plug>(coc-funcobj-i)
-"xmap af <Plug>(coc-funcobj-a)
-"omap if <Plug>(coc-funcobj-i)
-"omap af <Plug>(coc-funcobj-a)
-"
-"" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-"nmap <silent> <C-d> <Plug>(coc-range-select)
-"xmap <silent> <C-d> <Plug>(coc-range-select)
 
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Format :call CocAction('format')  " Use `:Format` to format current buffer
 
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Using CocList
-" Show all diagnostics
-"nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-"" Manage extensions
-"nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-"" Show commands
-"nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-"" Find symbol of current document
-"nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-"" Search workspace symbols
-"nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-"" Do default action for next item.
-"nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-"" Do default action for previous item.
-"nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-"" Resume latest coc list
-"nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}  " Add status line support, for integration with other plugin, checkout `:h coc-status`
+
+" Telescope
+nnoremap <C-p> <cmd>Telescope find_files<cr> 
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+lua << EOF
+require('telescope').setup{
+  defaults = {
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case'
+    },
+    prompt_prefix = "> ",
+    selection_caret = "> ",
+    entry_prefix = "  ",
+    initial_mode = "insert",
+    selection_strategy = "reset",
+    sorting_strategy = "descending",
+    layout_strategy = "horizontal",
+    layout_config = {
+      horizontal = {
+        mirror = false,
+      },
+      vertical = {
+        mirror = false,
+      },
+    },
+    file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+    file_ignore_patterns = {},
+    generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+    shorten_path = true,
+    winblend = 0,
+    border = {},
+    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+    color_devicons = true,
+    use_less = true,
+    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+
+    -- Developer configurations: Not meant for general override
+    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker,
+  },
+
+  extensions = {
+    fzy_native = {
+      override_generic_sorter = false,
+      override_file_sorter = true,
+    }
+  }
+
+}
+
 

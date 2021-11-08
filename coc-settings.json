@@ -1,0 +1,9 @@
+{
+  "diagnostic.checkCurrentLine": true,
+  "suggest.noselect": true,
+  "eslint.enable": true,
+  "eslint.packageManager": "npm",
+  "eslint.filetypes": ["javascript", "typescript", "typescriptreact", "javascriptreact", "typescript.tsx"],
+  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "javascriptreact", "typescript.tsx"]
+
+}

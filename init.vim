@@ -5,6 +5,13 @@
 
 " Start regular vim config stuff
 
+if exists('g:vscode')
+  " VSCode extension
+  set clipboard=unnamed "y and p to use system clipboard"
+
+  finish
+endif
+  " ordinary Neovim
 
 filetype plugin indent on "built in pluggin to display tree
 
@@ -17,7 +24,7 @@ syntax on
 
 set path=.,** "for :find file, set path= current directory, and all its child directories
 
-set hlsearch incsearch "highlight term incrementally as you type it, use :nohl to remove highlight after 
+set hlsearch incsearch "highlight term incrementally as you type it, use :nohl to remove highlight after
 
 colorscheme koehler " colors
 
@@ -50,13 +57,14 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall
 endif
-    
+
 call plug#begin()
+Plug 'kaicataldo/material.vim', { 'branch': 'main'}
 Plug 'https://github.com/sheerun/vim-polyglot.git' " syntax highlighting for multiple languages
 "Plug 'panglos/vim-javascript', { 'branch': 'main' } " syntax highlighting for javascript
 "Plug 'https://github.com/pangloss/vim-javascript.git'
 "Plug 'jiangmiao/auto-pairs' "this will auto close ( [ {
-Plug 'yuezk/vim-js' " these two plugins will add highlighting and indenting to JSX and TSX files. 
+Plug 'yuezk/vim-js' " these two plugins will add highlighting and indenting to JSX and TSX files.
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'nvim-lua/popup.nvim' "Telescope plugins (4)
 Plug 'nvim-lua/plenary.nvim'
@@ -90,7 +98,7 @@ set cindent
 " coc config
 let g:coc_global_extensions = [
   \ 'coc-pairs',
-  \ 'coc-eslint', 
+  \ 'coc-eslint',
   \ 'coc-json' ]
 
 highlight CocHighlightText     ctermfg=LightMagenta guifg=LightMagenta
@@ -324,13 +332,15 @@ command! -nargs=0 Format :call CocAction('format')  " Use `:Format` to format cu
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}  " Add status line support, for integration with other plugin, checkout `:h coc-status`
 
 " Telescope
-nnoremap <C-p> <cmd>Telescope find_files<cr> 
+nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <S-f> <cmd>Telescope live_grep<cr>
 noremap <S-tab> <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 
 lua << EOF
+
 require('theme-setup')
 require('lualine-setup')
 require('telescope-setup')
+

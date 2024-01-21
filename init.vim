@@ -9,7 +9,6 @@ nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 vnoremap p "_dP
 vnoremap <leader>d "_d
-nnoremap gd gdzz
 
 
 filetype plugin indent on "built in pluggin to display tree

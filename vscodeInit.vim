@@ -3,8 +3,8 @@ nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 
 " paste without yanking
-" vnoremap p "_dP " - causes the leading character to be deleted
-vnoremap p "0p " " fixes character to be deleted 
+vnoremap p "_dP " - causes the leading character to be deleted
+" vnoremap p "0p " " fixes character to be deleted 
 
 vnoremap <leader>d "_d
 

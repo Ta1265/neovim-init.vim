@@ -78,7 +78,7 @@ Plug 'marko-cerovac/material.nvim'
 "Plug 'glepnir/lspsaga.nvim'
 "Plug 'hrsh7th/nvim-compe'
 "
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 "Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 call plug#end()
